@@ -1,5 +1,11 @@
 <%
-  var posts = site.hide_posts.filter(post => post.tags.findOne({name: 'gsoc'})).sort('date', -1).sort('sticky', 1);
+  var posts = site.hide_posts.filter(post => post.tags.findOne({name: 'gsoc'}));
+  posts.each(post => {
+      if (post.sticky === undefined) {
+          post.sticky = 0;
+      }
+  })
+  posts = posts.sort({ sticky: -1, date: -1 });
 %>
 
 <%
